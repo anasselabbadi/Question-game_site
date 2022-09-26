@@ -1,0 +1,392 @@
+<html>
+    <title></title>
+    <style>
+
+    body{background-color: bisque;}
+    .btn {
+  background: #3cd934;
+  background-image: -webkit-linear-gradient(top, #3cd934, #b3b82b);
+  background-image: -moz-linear-gradient(top, #3cd934, #b3b82b);
+  background-image: -ms-linear-gradient(top, #3cd934, #b3b82b);
+  background-image: -o-linear-gradient(top, #3cd934, #b3b82b);
+  background-image: linear-gradient(to bottom, #3cd934, #b3b82b);
+  -webkit-border-radius: 60;
+  -moz-border-radius: 60;
+  border-radius: 60px;
+  text-shadow: 10px 0px 2px #666666;
+  -webkit-box-shadow: 6px 5px 3px #666666;
+  -moz-box-shadow: 6px 5px 3px #666666;
+  box-shadow: 6px 5px 3px #666666;
+  font-family: Courier New;
+  color: #ffffff;
+  font-size: 45px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #039908;
+  background-image: -webkit-linear-gradient(top, #039908, #164f75);
+  background-image: -moz-linear-gradient(top, #039908, #164f75);
+  background-image: -ms-linear-gradient(top, #039908, #164f75);
+  background-image: -o-linear-gradient(top, #039908, #164f75);
+  background-image: linear-gradient(to bottom, #039908, #164f75);
+  text-decoration: none;
+}
+.text {
+font-family: "Comic Sans MS", cursive, sans-serif;
+font-size: 29px;
+letter-spacing: 0px;
+word-spacing: 5.2px;
+color: #000000;
+font-weight: 400;
+text-decoration: none;
+font-style: normal;
+font-variant: normal;
+text-transform: capitalize;
+}
+.center {
+  margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  padding: 10px;
+  margin-top: 10%;
+}
+.control {
+    font-family: arial;
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 5px;
+    padding-top: 3px;
+    cursor: pointer;
+    font-size: 16px;
+}
+    .control input {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+    }
+.control_indicator {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background: #e6e6e6;
+    border: 0px solid #000000;
+    border-radius: undefinedpx;
+}
+.control:hover input ~ .control_indicator,
+.control input:focus ~ .control_indicator {
+    background: #cccccc;
+}
+
+.control input:checked ~ .control_indicator {
+    background: #2aa1c0;
+}
+.control:hover input:not([disabled]):checked ~ .control_indicator,
+.control input:checked:focus ~ .control_indicator {
+    background: #f9a5a5;
+}
+.control input:disabled ~ .control_indicator {
+    background: #e6e6e6;
+    opacity: 0.6;
+    pointer-events: none;
+}
+.control_indicator:after {
+    box-sizing: unset;
+    content: '';
+    position: absolute;
+    display: none;
+}
+.control input:checked ~ .control_indicator:after {
+    display: block;
+}
+.control-radio .control_indicator {
+    border-radius: 50%;
+}
+
+.control-radio .control_indicator:after {
+    left: 7px;
+    top: 7px;
+    height: 6px;
+    width: 6px;
+    border-radius: 50%;
+    background: #ffffff;
+    transition: 250ms;
+}
+.control-radio input:disabled ~ .control_indicator:after {
+    background: #7b7b7b;
+}.control-radio .control_indicator::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4.5rem;
+    height: 4.5rem;
+    margin-left: -1.3rem;
+    margin-top: -1.3rem;
+    background: #2aa1c0;
+    border-radius: 3rem;
+    opacity: 0.6;
+    z-index: 99999;
+    transform: scale(0);
+}
+@keyframes s-ripple {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    20% {
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0.01;
+        transform: scale(1);
+    }
+}
+@keyframes s-ripple-dup {
+   0% {
+       transform: scale(0);
+    }
+   30% {
+        transform: scale(1);
+    }
+    60% {
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+.control-radio input + .control_indicator::before {
+    animation: s-ripple 250ms ease-out;
+}
+.control-radio input:checked + .control_indicator::before {
+    animation-name: s-ripple-dup;
+}
+    </style>
+    <body>
+        <div class="center">
+        <p class="text">
+
+            IQ GAME
+    
+            <br />
+    
+            Asking question <span id="NumberAsked">1</span> of 10 with <span id="NumberCorrect">0</span> answers correct</p>
+    
+        <p>
+    
+            <span id="Question" class="text">???</span>
+    
+        </p>
+    
+        <p>
+            <div class="control-group">
+            &nbsp;<label class="control control-radio">
+            <input id="RadioTrue" type="radio" value="true" name="radio" checked="checked" /> True
+            <div class="control_indicator"></div></label>
+            &nbsp;&nbsp;&nbsp;
+            <label class="control control-radio">
+            <input id="RadioFalse" type="radio" value="false" name="radio" /> False
+            <div class="control_indicator"></div>
+            </div></label>
+        </p>
+    
+        <p>
+    
+            <input id="ButtonContinue"class="btn" onclick="checkAnswer();" type="button" value="continue" />
+            <input class="btn"  type="button" onclick="relod ();" value="REPLAY" />
+    
+        </p>
+    
+    </div>
+    
+        <script language="javascript" type="text/javascript">
+    
+            
+    
+            var TriviaData = new Array(10)
+    
+            createTwoDimensionalArray(3);
+    
+     
+    
+          
+            var questionsAsked = 0;
+    
+            var totalCorrect = 0;
+    
+            var currentQuestion = 0;
+    
+            var selectionValid = false;
+    
+     
+    
+            // Questions
+    
+            TriviaData[0][0] = "Death Valley is the lowest, hottest, and driest area of North America..";
+    
+            TriviaData[1][0] = "The Oscar-winning film A Beautiful Mind (2001) deals with schizophrenia.";
+    
+            TriviaData[2][0] = "King Tut was one of the longest-reigning kings of ancient Egypt.";
+    
+            TriviaData[3][0] = "'You don't get to 500 million friends without making a few enemies,'' said Barack Obama.";
+            
+            TriviaData[4][0] = "Veins look blue because the oxygen-depleted blood in them is blue";
+
+            TriviaData[5][0] = "When Ronald Reagan challenged communist leaders to 'tear down this wall,'' he was referring to the Great Wall of China";
+
+            TriviaData[6][0] = "A straight line measures 180 degrees";
+
+            TriviaData[7][0] = "The tango originated in Argentina";
+
+            TriviaData[8][0] = "Volleyball was invented as a game for businessmen";
+
+            TriviaData[9][0] = "Spiders belong to the 'insect' class of animals.";
+    
+            // Answers
+    
+            TriviaData[0][1] = "true";
+    
+            TriviaData[1][1] = "true";
+    
+            TriviaData[2][1] = "false";
+    
+            TriviaData[3][1] = "false";
+    
+            TriviaData[4][1] = "false";
+    
+            TriviaData[5][1] = "false";
+    
+            TriviaData[6][1] = "true";
+    
+            TriviaData[7][1] = "true";
+    
+            TriviaData[8][1] = "true";
+    
+            TriviaData[9][1] = "false";
+    
+    
+    
+            TriviaData[0][2] = "no";
+    
+            TriviaData[1][2] = "no";
+    
+            TriviaData[2][2] = "no";
+    
+            TriviaData[3][2] = "no";
+    
+            TriviaData[4][2] = "no";
+    
+            TriviaData[5][2] = "no";
+    
+            TriviaData[6][2] = "no";
+    
+            TriviaData[7][2] = "no";
+    
+            TriviaData[8][2] = "no";
+    
+            TriviaData[9][2] = "no";
+
+    
+            setQuestion();
+    
+     
+    
+    
+            function setQuestion() {
+    
+                selectionValid = false; 
+                while (selectionValid == false) {
+    
+                    currentQuestion = Math.floor(Math.random() * 10); 
+                    if (TriviaData[currentQuestion][2] == "no") {
+    
+                        selectionValid = true;
+    
+                    }
+    
+                }
+    
+                document.getElementById("Question").innerHTML = TriviaData[currentQuestion][0];
+    
+                TriviaData[currentQuestion][2] = "yes";
+    
+                questionsAsked = questionsAsked + 1;
+    
+            }
+    
+     
+    
+            function processAnswer(myAnswer) {
+    
+                if (TriviaData[currentQuestion][1] == myAnswer) {
+    
+                    totalCorrect = totalCorrect + 1;
+    
+                }
+    
+            }
+    
+    
+    
+            function createTwoDimensionalArray(arraySize) {
+    
+                for (i = 0; i < TriviaData.length; ++i)
+    
+                    TriviaData[i] = new Array(arraySize);
+    
+            }
+    
+     
+
+    
+            function checkAnswer() {
+    
+                if (document.getElementById("RadioTrue").checked) {
+    
+                    processAnswer("true");
+    
+                }
+    
+                else {
+    
+                    processAnswer("false");
+    
+                }
+    
+    
+                if (questionsAsked < 10) {
+    
+                    setQuestion();
+    
+                }
+    
+    
+                else {
+    
+                    alert("Quiz complete! You got " + totalCorrect + " correct out of 10.");
+    
+                    document.getElementById("ButtonContinue").disabled = true;
+    
+                }
+    
+    
+                document.getElementById("NumberAsked").innerHTML = questionsAsked;
+    
+                document.getElementById("NumberCorrect").innerHTML = totalCorrect;
+    
+            }
+    
+     function relod () {
+        location.reload();
+     }
+    
+        </script>
+    </body>
+</html>
